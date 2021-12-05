@@ -25,3 +25,17 @@ input_2 %>%
  
 input_2 %>% 
 	apply_transition_submarine()
+
+
+source(here::here('R/day_3.R'))
+
+input_3 <- read_lines(here::here('inputs/input_3_test.txt'))
+
+test_gamma <- input_3 %>%
+	pure_generate_gamma()
+
+test_epsilon  <- input_3  %>%
+	pure_generate_epsilon()
+
+input_3 %>%
+	pure_calculate_power_consumption()
