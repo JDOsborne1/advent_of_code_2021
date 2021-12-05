@@ -29,10 +29,10 @@ input_2 %>%
 
 source(here::here('R/day_3.R'))
 
-input_3 <- read_lines(here::here('inputs/input_3_test.txt'))
+input_3 <- read_lines(here::here('inputs/input_3.txt'))
 
 input_3 %>%
 	pure_calculate_power_consumption()
 
 input_3 %>%
-	pure_calculate_co2_scrubber_rating()
+	pure_calculate_life_support_rating()
