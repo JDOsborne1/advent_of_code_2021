@@ -1,5 +1,5 @@
-library('readr')
 library('tibble')
+library('readr')
 library('dplyr')
 library('tidyr')
 library('stringr')
@@ -36,3 +36,15 @@ input_3 %>%
 
 input_3 %>%
 	pure_calculate_life_support_rating()
+
+source(here::here('R/day_4.R'))
+
+input_4 <- read_lines(here::here('inputs/input_4.txt'))
+
+input_4 %>% 
+	pure_play_bingo() %>%
+	pure_score_bingo()
+
+input_4 %>% 
+	pure_play_bingo(.thats_playing_to_win_baby = FALSE) %>%
+	pure_score_bingo()
