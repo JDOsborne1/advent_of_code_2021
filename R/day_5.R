@@ -54,7 +54,7 @@ meta_functional_application <- function(.a_function, .value){
 	.a_function(.value)
 }
 
-create_line_set <- function(.input_list){
+create_line_set <- function(.input_list, .diagonal_allowed = FALSE ) {
 	.input_list %>%	
 		map(parse_vectors) %>%
 		enframe(name = NULL) %>%
@@ -62,18 +62,17 @@ create_line_set <- function(.input_list){
 		       xy_line = map_lgl(value, check_is_axis_parallel)
 		       , largest_coord = map_int(value, get_largest_coordinate)
 		       , matching_functions = map(value,generate_matching_function)
-		)
+		) %>%
+		filter(xy_line|.diagonal_allowed)
 
 }
 
 create_vent_map <- function(.line_set){
 	live_line_set <- .line_set %>%
-		filter(xy_line) %>%
 		select(matching_functions) %>%
 		pull()	
 
 	space_size <- .line_set %>%
-		filter(xy_line) %>% 
 		pull(largest_coord) %>%
 		max() %>%
 		{.+1}

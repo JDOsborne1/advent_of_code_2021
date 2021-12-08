@@ -53,15 +53,9 @@ source(here::here('R/day_5.R'))
 
 input_5 <- read_lines(here::here('inputs/input_5.txt'))
 
-tic("create line set")
 line_set <- input_5 %>%
-	create_line_set() 
-toc() 
-tic("create vent map")
+	create_line_set(.diagonal_allowed=TRUE) 
 vent_map <- line_set %>%
 	create_vent_map()
-toc()
-tic("find_result")
 vent_map %>%
 	{sum(.>=2)}
-toc()
