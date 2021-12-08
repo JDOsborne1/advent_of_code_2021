@@ -16,26 +16,26 @@ pos_get_modifier <- function(.mod_string){
 
 
 apply_transition_cartesian <- function(.input_list){
-	.input_list %>%	
+	.input_list %>%
 	map(pos_get_modifier) %>%
 	reduce(`+`) %>%
-	{.[.!=0]} %>%
+	{.[. != 0]} %>%
 	reduce(`*`)
 }
 
 apply_transition_submarine <- function(.input_list){
 	movements_list <- .input_list %>%
 	map(pos_get_modifier)
-	       
+
 base_position <- c(0,0,0)
 
-for (i in movements_list){
+for (i in movements_list) {
 	base_position[1] = base_position[1] + i[1]
 	base_position[2] = base_position[2] + (i[1] * base_position[3])
 	base_position[3] = base_position[3] + i[3]
 }
 
-base_position[1] * base_position[2] 
+base_position[1] * base_position[2]
 
 }
 

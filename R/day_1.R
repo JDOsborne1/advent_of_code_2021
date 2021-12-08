@@ -11,7 +11,7 @@ pure_find_increases <- function(
 	       , increased = lag_value < value
 	       ) %>%
 	pull(increased) %>%
-	sum(na.rm=T)
+	sum(na.rm = T)
 }
 
 
@@ -19,7 +19,7 @@ pure_find_increases_window <- function(
 				       .input_lines
 				       ){
 	.input_lines %>%
-	enframe(name=NULL) %>%
+	enframe(name = NULL) %>%
 	mutate(across(value, as.integer)) %>%
 	mutate(
 		lead_value_1 = lead(value,1)
@@ -35,5 +35,5 @@ pure_find_increases_window <- function(
 	       ) %>%
 	filter(!is.na(lead_value_3)) %>%
 	pull(increased) %>%
-	sum(na.rm=T)
+	sum(na.rm = T)
 }

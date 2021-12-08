@@ -32,45 +32,42 @@ pure_play_bingo <- function(.bingo_game_setup, .thats_playing_to_win_baby = TRUE
 
 	calls <- split_input[[1]]
 
-	boards <- split_input[[2]] 
+	boards <- split_input[[2]]
 
 	splits <- boards %>%
 		{. == ""} %>%
-		which() 
+		which()
 
 	board_length <- splits %>%
 		{. - lag(.) } %>%
-		median(na.rm=T)
+		median(na.rm = T)
 
 
 	parsed_boards <- splits %>%
-		map(function(x) (x+1):(x+board_length-1)) %>%
+		map(function(x) (x + 1):(x + board_length - 1)) %>%
 		map(function(x) boards[x]) %>%
 		map(lines_to_matrix)
 
 	parsed_calls <- calls %>%
-		strsplit(",") %>% 
+		strsplit(",") %>%
 		unlist() %>%
 		as.integer()
-
-	test_board <- parsed_boards[[1]]
-
 
 
 	playing_boards <- parsed_boards
 
-	for (i in parsed_calls){
+	for (i in parsed_calls) {
 		last_board_state <- playing_boards
 		playing_boards <- playing_boards %>%
-			map(call_number, i)	
-	
-		if(any(playing_boards %>% map_lgl(has_bingo)) & .thats_playing_to_win_baby){
+			map(call_number, i)
+
+		if (any(playing_boards %>% map_lgl(has_bingo)) & .thats_playing_to_win_baby) {
 			print("Bingo")
 			winning_board <- playing_boards %>%
 				{.[map_lgl(.,has_bingo)]} %>%
-				{.[[1]]} 
+				{.[[1]]}
 			break
-		} else if(all(playing_boards %>% map_lgl(has_bingo))) {
+		} else if (all(playing_boards %>% map_lgl(has_bingo))) {
 				   old_winning_boards <- last_board_state %>%
 					   map_lgl(has_bingo)
 				   new_winning_boards <- playing_boards %>%
@@ -78,7 +75,7 @@ pure_play_bingo <- function(.bingo_game_setup, .thats_playing_to_win_baby = TRUE
 				   winning_board <- playing_boards %>%
 					   {.[old_winning_boards != new_winning_boards]} %>%
 					   {.[[1]]}
-				   break	   
+				   break
 		}
 	}
 
