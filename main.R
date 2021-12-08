@@ -91,4 +91,9 @@ input_6 <- read_lines(here::here('inputs/input_6.txt'))
 
 input_6 %>%
         parse_lanternfish_counters() %>%
-        count_lanternfish_pop(.after = 80)
+        count_lanternfish_pop_efficient(.after = 80)
+
+input_6 |>
+        parse_lanternfish_counters() |>
+        count_lanternfish_pop_efficient(.after = 256) |>
+        as.character()

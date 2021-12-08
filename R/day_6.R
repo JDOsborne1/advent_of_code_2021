@@ -60,13 +60,14 @@ iterate_lanternfish_lifecycle <- function(.lanterns){
 }
 
 parse_lanternfish_counters <- function(.input_list){
-        lanternfish_counters <- input_6 %>%
+        input_6 %>%
                 strsplit(",") %>%
                 {.[[1]]} %>%
                 as.integer()
 }
 count_lanternfish_pop <- function(.lanternfish_counters, .after, .raw_return = FALSE){
         lantern_pop <- .lanternfish_counters
+
         for(i in 1:.after){
                 lantern_pop <- lantern_pop |>
                         iterate_lanternfish_lifecycle()
@@ -77,6 +78,34 @@ count_lanternfish_pop <- function(.lanternfish_counters, .after, .raw_return = F
         length(lantern_pop)
         }
 
+
+}
+count_lanternfish_pop_efficient <- function(.lanternfish_counters, .after){
+        lantern_pop <- .lanternfish_counters |>
+                enframe(name = NULL) |>
+                count(value) |>
+                right_join(tibble(value = 0:8), by = 'value') |>
+                mutate(across(n, replace_na, 0)) |>
+                arrange(value)
+
+
+        for (i in 1:.after) {
+                breeding_pop <- lantern_pop |>
+                        filter(value == 0) |>
+                        pull(n)
+
+                lantern_pop <- lantern_pop |>
+                        mutate(
+                                n = lead(n)
+                        )
+                lantern_pop[9,2] <- breeding_pop
+                lantern_pop[7,2] <- lantern_pop[7,2] + breeding_pop
+
+        }
+
+        lantern_pop |>
+                pull(n) |>
+                sum()
 
 }
 
