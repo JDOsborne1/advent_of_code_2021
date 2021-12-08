@@ -8,6 +8,15 @@ library(ggplot2)
 
 
 source(here::here('R/day_1.R'))
+source(here::here('R/day_2.R'))
+source(here::here('R/day_3.R'))
+source(here::here('R/day_4.R'))
+source(here::here('R/day_5.R'))
+source(here::here("R/day_6.R"))
+
+
+# Day 1 -------------------------------------------------------------------
+
 
 input_1 <- read_lines(here::here('inputs/input_1.txt'))
 
@@ -18,7 +27,9 @@ input_1 %>%
 	pure_find_increases_window()
 
 
-source(here::here('R/day_2.R'))
+
+# Day 2 -------------------------------------------------------------------
+
 
 input_2 <- read_lines(here::here('inputs/input_2.txt'))
 
@@ -29,7 +40,9 @@ input_2 %>%
 	apply_transition_submarine()
 
 
-source(here::here('R/day_3.R'))
+
+# Day 3 -------------------------------------------------------------------
+
 
 input_3 <- read_lines(here::here('inputs/input_3.txt'))
 
@@ -39,7 +52,10 @@ input_3 %>%
 input_3 %>%
 	pure_calculate_life_support_rating()
 
-source(here::here('R/day_4.R'))
+
+# Day 4 -------------------------------------------------------------------
+
+
 
 input_4 <- read_lines(here::here('inputs/input_4.txt'))
 
@@ -51,20 +67,25 @@ input_4 %>%
 	pure_play_bingo(.thats_playing_to_win_baby = FALSE) %>%
 	pure_score_bingo()
 
-source(here::here('R/day_5.R'))
 
-input_5 <- read_lines(here::here('inputs/input_5.txt'))
+# Day 5 -------------------------------------------------------------------
 
-line_set <- input_5 %>%
-	create_line_set(.diagonal_allowed = TRUE)
 
-vent_map <- line_set %>%
-	create_vent_map()
+# input_5 <- read_lines(here::here('inputs/input_5.txt'))
+#
+# line_set <- input_5 %>%
+# 	create_line_set(.diagonal_allowed = TRUE)
+#
+# vent_map <- line_set %>%
+# 	create_vent_map()
+#
+# vent_map %>%
+#   {sum(. >= 2)}
 
-vent_map %>%
-  {sum(. >= 2)}
 
-source(here::here("R/day_6.R"))
+# Day 6 -------------------------------------------------------------------
+
+
 
 input_6 <- read_lines(here::here('inputs/input_6_test.txt'))
 
