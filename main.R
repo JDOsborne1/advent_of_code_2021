@@ -4,7 +4,7 @@ library('dplyr')
 library('tidyr')
 library('stringr')
 library('purrr')
-library(ggplot2)
+library('ggplot2')
 
 
 source(here::here('R/day_1.R'))
@@ -13,6 +13,7 @@ source(here::here('R/day_3.R'))
 source(here::here('R/day_4.R'))
 source(here::here('R/day_5.R'))
 source(here::here("R/day_6.R"))
+source(here::here("R/day_7.R"))
 
 
 # Day 1 -------------------------------------------------------------------
@@ -97,3 +98,19 @@ input_6 |>
         parse_lanternfish_counters() |>
         count_lanternfish_pop_efficient(.after = 256) |>
         as.character()
+
+
+
+# Day 7 -------------------------------------------------------------------
+
+
+input_7 <- read_lines(here::here('inputs/input_7.txt'))
+
+
+input_7 |>
+        parse_crab_positions() |>
+        find_minimal_shift()
+
+input_7 |>
+        parse_crab_positions() |>
+        find_minimal_rocket_shift()
