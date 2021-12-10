@@ -119,8 +119,8 @@ input_7 |>
 
 # Day 8 -------------------------------------------------------------------
 
-input_8 <- read_lines(here::here('inputs/input_8_test.txt'))
+input_8 <- read_lines(here::here('inputs/input_8.txt'))
 
-
-
-
+input_8 |>
+        parse_seven_segment_display() |>
+        count_all_output_values()
