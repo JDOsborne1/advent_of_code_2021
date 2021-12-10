@@ -14,6 +14,7 @@ source(here::here('R/day_4.R'))
 source(here::here('R/day_5.R'))
 source(here::here("R/day_6.R"))
 source(here::here("R/day_7.R"))
+source(here::here("R/day_8.R"))
 
 
 # Day 1 -------------------------------------------------------------------
@@ -114,3 +115,12 @@ input_7 |>
 input_7 |>
         parse_crab_positions() |>
         find_minimal_rocket_shift()
+
+
+# Day 8 -------------------------------------------------------------------
+
+input_8 <- read_lines(here::here('inputs/input_8_test.txt'))
+
+
+
+
