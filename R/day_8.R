@@ -184,7 +184,7 @@ find_letter_mapping <- function(.parsed_signal){
                         mutate(across(value, as.character)) |>
                         group_by(rownum) |>
                         filter(n() == n_distinct(value)) |>
-                        filter(!is.na(mapping_digital_display_to_numbers(value))) |> #summarise(return_number =mapping_digital_display_to_numbers(value))
+                        filter(!is.na(mapping_digital_display_to_numbers(value))) |>
                         ungroup() |>
                         pivot_wider() |>
                         select(-rownum) |>
@@ -192,9 +192,89 @@ find_letter_mapping <- function(.parsed_signal){
                         map(unique)
                 mapping_list[names(valid_combos)] <- valid_combos
 
-                # locked_down_values <- mapping_list[map_int(mapping_list, length) == 1]
+
+        }
+
+        ## Third Phase reduction
+        ## exploit the fact that there is only one instance of each number
+        mapping_grid <- mapping_list |>
+                expand.grid()
+
+        number_possibilities <- list_along(1:length(sorted_signal))
+        for (i in 1:length(number_possibilities)) {
+                number_possibilities[[i]] <- as.integer(0:9)
+        }
+
+        names(number_possibilities) <- sorted_signal
+
+        for (i in sorted_signal) {
+                possible_numbers <- mapping_grid[str_dismantle(i)] |>
+                        unique() |>
+                        mutate(rownum = row_number()) |>
+                        pivot_longer(-rownum) |>
+                        mutate(across(value, as.character)) |>
+                        group_by(rownum) |>
+                        filter(!is.na(mapping_digital_display_to_numbers(value))) |>
+                        summarise(display_num = mapping_digital_display_to_numbers(value)) |>
+                        pull(display_num) |>
+                        unique()
+                number_possibilities[[i]] <- possible_numbers
+
+        }
+
+        for (i in 1:length(sorted_signal)) {
+                taken_numbers <- number_possibilities[map_lgl(number_possibilities,function(x) length(x) == 1)]
+
+                number_possibilities[map_lgl(number_possibilities,function(x) length(x) != 1)] <- number_possibilities[map_lgl(number_possibilities,function(x) length(x) != 1)] |>
+                        map(drop_element,taken_numbers)
+
+        }
+
+
+        for (i in sorted_signal) {
+                mapping_grid <- mapping_list |>
+                        expand.grid()
+
+                valid_combos <- mapping_grid[str_dismantle(i)] |>
+                        unique() |>
+                        mutate(rownum = row_number()) |>
+                        pivot_longer(-rownum) |>
+                        mutate(across(value, as.character)) |>
+                        group_by(rownum) |>
+                        filter(n() == n_distinct(value)) |>
+                        filter(!is.na(mapping_digital_display_to_numbers(value))) |>
+                        filter(mapping_digital_display_to_numbers(value) == number_possibilities[[i]]) |>
+                        ungroup() |>
+                        pivot_wider() |>
+                        select(-rownum) |>
+                        as.list() |>
+                        map(unique)
+                mapping_list[names(valid_combos)] <- valid_combos
+
 
         }
 
         mapping_list
+}
+
+
+apply_letter_mapping <- function(.garbled_input, .letter_mapping) {
+        letter_list <- .garbled_input |>
+                map(str_dismantle)
+        output_list <- list()
+        for (i in 1:length(letter_list)) {
+                output_list[[i]] <- .letter_mapping[letter_list[[i]]]
+        }
+
+        output_list |>
+                map_int(mapping_digital_display_to_numbers) |>
+                as.character() |>
+                paste0(collapse = "") |>
+                as.integer()
+}
+
+find_and_apply_display_mapping <- function(.parsed_input){
+
+
+
 }
