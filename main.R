@@ -6,16 +6,7 @@ library('stringr')
 library('purrr')
 library('ggplot2')
 
-
-source(here::here('R/day_1.R'))
-source(here::here('R/day_2.R'))
-source(here::here('R/day_3.R'))
-source(here::here('R/day_4.R'))
-source(here::here('R/day_5.R'))
-source(here::here("R/day_6.R"))
-source(here::here("R/day_7.R"))
-source(here::here("R/day_8.R"))
-source(here::here("R/day_9.R"))
+library(aoc2021)
 
 
 # Day 1 -------------------------------------------------------------------
