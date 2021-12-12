@@ -135,6 +135,8 @@ input_8 |>
 
 # Day 9 -------------------------------------------------------------------
 
-input_9 <- read_lines(here::here('inputs/input_9_test.txt'))
+input_9 <- read_lines(here::here('inputs/input_9.txt'))
 
-
+input_9 |>
+        parse_lava_tube_matrix() |>
+        find_lowpoint_risk_level()
