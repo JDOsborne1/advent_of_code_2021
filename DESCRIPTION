@@ -1,4 +1,4 @@
-Package: aoc_2021
+Package: aoc2021
 Title: Capturing functionality for AOC 2021 challenges
 Version: 0.0.0.9000
 Authors@R: 
