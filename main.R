@@ -119,34 +119,15 @@ input_7 |>
 
 # Day 8 -------------------------------------------------------------------
 
-input_8 <- read_lines(here::here('inputs/input_8_test.txt'))
+input_8 <- read_lines(here::here('inputs/input_8.txt'))
 
 input_8 |>
         parse_seven_segment_display() |>
         count_all_output_values()
 
-
-input_test <- list("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
-cdfeb fcadb cdfeb cdbaf") |>
-        parse_seven_segment_display()
-
-signal_test <- input_test |>
-        pull(signal) |>
-        unlist()
-
-letter_mapping_test <- signal_test |>
-        find_letter_mapping()
-
-output_test <- input_test |>
-        pull(output) |>
-        unlist()
-
-mapped_input <- input_8 |>
+input_8 |>
         parse_seven_segment_display() |>
-        mutate(letter_mapping = map(signal, find_letter_mapping))
+        find_and_apply_display_mapping() |>
+        pull(output_result) |>
+        sum()
 
-mapped_input |>
-        mutate(output_result = map2_int(output, letter_mapping, apply_letter_mapping)) |> pull(output_result)
-
-output_test |>
-        map_int(apply_letter_mapping, letter_mapping_test)

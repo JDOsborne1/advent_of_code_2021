@@ -274,7 +274,9 @@ apply_letter_mapping <- function(.garbled_input, .letter_mapping) {
 }
 
 find_and_apply_display_mapping <- function(.parsed_input){
-
+        .parsed_input |>
+                mutate(letter_mapping = map(signal, find_letter_mapping)) |>
+                mutate(output_result = map2_int(output, letter_mapping, apply_letter_mapping))
 
 
 }
