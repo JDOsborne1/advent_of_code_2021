@@ -15,6 +15,7 @@ source(here::here('R/day_5.R'))
 source(here::here("R/day_6.R"))
 source(here::here("R/day_7.R"))
 source(here::here("R/day_8.R"))
+source(here::here("R/day_9.R"))
 
 
 # Day 1 -------------------------------------------------------------------
@@ -125,9 +126,15 @@ input_8 |>
         parse_seven_segment_display() |>
         count_all_output_values()
 
-input_8 |>
-        parse_seven_segment_display() |>
-        find_and_apply_display_mapping() |>
-        pull(output_result) |>
-        sum()
+# input_8 |>
+#         parse_seven_segment_display() |>
+#         find_and_apply_display_mapping() |>
+#         pull(output_result) |>
+#         sum()
+
+
+# Day 9 -------------------------------------------------------------------
+
+input_9 <- read_lines(here::here('inputs/input_9_test.txt'))
+
 
