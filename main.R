@@ -131,3 +131,16 @@ input_9 <- read_lines(system.file("extdata", "input_9.txt", package = "aoc2021")
 input_9 |>
         parse_lava_tube_matrix() |>
         find_lowpoint_risk_level()
+
+
+# Day 10 ------------------------------------------------------------------
+
+input_10 <- read_lines(system.file("extdata", "input_10.txt", package = "aoc2021"))
+
+input_10 |>
+        clear_legal_values() |>
+        find_and_score_illegal_closes()
+
+input_10 |>
+        clear_legal_values() |>
+        find_and_score_incomplete_lines()
