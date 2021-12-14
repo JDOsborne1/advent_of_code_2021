@@ -144,3 +144,11 @@ input_10 |>
 input_10 |>
         clear_legal_values() |>
         find_and_score_incomplete_lines()
+
+
+
+# Day 11 ------------------------------------------------------------------
+
+input_11 <- read_lines(system.file("extdata", "input_11_test.txt", package = "aoc2021"))
+
+input_11
