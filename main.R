@@ -149,6 +149,9 @@ input_10 |>
 
 # Day 11 ------------------------------------------------------------------
 
-input_11 <- read_lines(system.file("extdata", "input_11_test.txt", package = "aoc2021"))
+input_11 <- read_lines(system.file("extdata", "input_11_toy.txt", package = "aoc2021"))
 
-input_11
+input_11 |>
+        parse_octopus_positions() |>
+        iterate_octopus_lifecycle()
+
